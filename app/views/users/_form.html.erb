@@ -1,0 +1,49 @@
+<%= form_with model: @user, local: false do |form| %>
+ 
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@user.errors.count, "error") %> prohibited
+        this user from being saved:
+      </h2>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :user_name, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= form.text_field :user_name%>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :email, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= form.text_field :email%>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :phone, class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= form.text_field :phone%>
+    </div>
+  </div>
+
+  <div>
+    <div id="addresses">
+      <%= form.fields_for :addresses do |address| %>
+        <%= render 'address_fields', f: address %>
+      <% end %>
+      <%= link_to_add_association 'add address', form, :addresses, class: 'button2' %>
+    </div>
+  </div>
+ 
+  <%= form.submit "Submit", class: "btn btn-primary button3" %>
+<% end %>
+<%= link_to "Back", root_path %>

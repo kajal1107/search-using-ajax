@@ -1,0 +1,36 @@
+<h1>User Details</h1>
+<p>
+	<strong>User Name:</strong>	
+	<%= @user.user_name %>
+</p>
+<p>
+	<strong>Email:</strong>	
+	<%= @user.email %>
+</p>
+<p>
+	<strong>Phone:</strong>	
+	<%= @user.phone %>
+</p>
+<h3>User Addresses:</h3>
+<table>
+	<tr>
+		<th>Street No</th>
+		<th>Town</th>
+		<th>Landmark</th>
+		<th>Area</th>
+		<th>Country</th>
+		<th>Pin Code</th>
+	</tr>
+	<% @user.addresses.each do |address| %>
+		<tr>
+			<td><%= address.street_number%></td>
+			<td><%= address.locality%></td>
+			<td><%= address.route%></td>
+			<td><%= address.administrative_area_level_1%></td>
+			<td><%= address.country%></td>
+			<td><%= address.postal_code%></td>
+		</tr>
+	<% end %>
+</table>
+
+<%= link_to "Back", root_path%>

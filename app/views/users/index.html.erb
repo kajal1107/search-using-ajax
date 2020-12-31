@@ -1,0 +1,59 @@
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin: 5px
+}
+</style>
+<h2>List Of User</h2>
+
+Email<%= radio_button_tag 'option', 'email', true, class: "rf_btn" %>
+UserName<%= radio_button_tag 'option', 'username', false, class: "rf_btn" %>
+Phone<%= radio_button_tag 'option', 'phone', false, class: "rf_btn" %>
+Locality<%= radio_button_tag 'option', 'locality', false, class: "rf_btn" %>
+Country<%= radio_button_tag 'option', 'country', false, class: "rf_btn" %>
+Pcode<%= radio_button_tag 'option', 'postal_code', false, class: "rf_btn" %></br>
+
+<%= text_field_tag :search, "", id: "search_users" %>
+<div id="search-user">
+  <%= render 'user', users: @users %>
+</div>
+
+<script type="text/javascript">
+  $("#search_users").keyup(function() {
+    var letter = document.getElementById("search_users").value;
+    if($('.rf_btn:checked').val() == "email") {
+      var option = document.getElementById("option_email").value;
+    } else {
+      if($('.rf_btn:checked').val() == "username") {
+        var option = document.getElementById("option_username").value;
+
+      } 
+      else{
+        if($('.rf_btn:checked').val() == "phone") {
+          var option = document.getElementById("option_phone").value;
+  
+        }
+        else{
+          if($('.rf_btn:checked').val() == "locality") {
+            var option = document.getElementById("option_locality").value;
+          }
+          else{
+            if($('.rf_btn:checked').val() == "country"){
+              var option = document.getElementById("option_country").value;
+            }
+            else{
+              var option = document.getElementById("option_postal_code").value;
+            }
+          }
+        }
+      }
+    }
+    $.ajax({
+      url: '/search',
+      data: { search: letter, option_type: option }   
+    });
+  });
+</script>
+
+<%= link_to new_user_path do %><i class="fa fa-user"></i><%end%>
